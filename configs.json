@@ -1,0 +1,29 @@
+{
+  "categories": [
+    { "id":"aCategory", "name":"My first Category" },
+    { "id":"anotherCategory", "name":"Another category" }
+  ],
+  "documents": [
+    {
+      "type": "depositDunningLetter",
+      "name": "Mise en demeure pour non-paiement du dépôt de garantie",
+      "description": "Somme vos locataires de payer le dépôt de garantie au plus vite, sous peine de résilier le contrat. Vous devez préalablement avoir relancé vos locataires au sujet du non-paiement du dépôt de garantie.",
+      "summary": "tenant.address.formatted_address",
+      "category": "aCategory",
+      "persons": ["lessor", "tenant"],
+      "resources": [],
+      "mail": { "from": "lessor", "to": "tenant", "type": "registered" }
+    },
+    {
+      "type": "depositDeductionNotice",
+      "name": "Notification de retenue ou restitution du dépôt de garantie",
+      "description": "Informe les locataires quittant le logement des montants du dépôt de garantie qui leurs sont restitués, déduction faite du montant des travaux de remise en l’état et des loyers et charges impayés. Vous pouvez joindre les justificatifs (état des lieux, devis, facture) à votre courrier.",
+      "summary": "tenant.address.formatted_address",
+      "category": "anotherCategory",
+      "persons": ["lessor", "tenant"],
+      "resources": [],
+      "mail": { "from": "lessor", "to": "tenant", "type": "standard" }
+    }
+  ]
+
+}

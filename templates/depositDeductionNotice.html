@@ -1,0 +1,67 @@
+<section>
+  <article>
+    <h1>Bailleur</h1>
+    <person person.bind="lessor"></person>
+  </article>
+</section>
+
+<section>
+  <article>
+    <h1>Locataire</h1>
+    <natural-person person.bind="tenant" attributes="name address"></natural-person>
+  </article>
+</section>
+
+<section>
+  <p>
+    <label>
+      <input-title>Montant du dépot de garantie</input-title>
+      <input type="number" min="0" max="999999" step="0.01" value.bind="deposit | number" required unit="€">
+    </label>
+  </p>
+
+  <p>
+    <input-title>Le logement a-t-il subi des dégradations&nbsp;?</input-title>
+    <choice selected.two-way="is_repairs" required>
+      <choice-option value.bind="true">Oui</choice-option>
+      <choice-option value.bind="false">Non</choice-option>
+    </choice>
+  </p>
+
+  <p if.bind="is_repairs">
+    <label>
+      <input-title>Description des travaux de remise en état</input-title>
+      <textarea rows="3" value.bind="repairs_description" nobr maxlength="300" required></textarea>
+    </label>
+  </p>
+
+  <p if.bind="is_repairs">
+    <label>
+      <input-title>Montant de ces travaux</input-title>
+      <input type="number" min="0.01" max="9999999" step="0.01" value.bind="repairs_cost | number" required unit="€">
+    </label>
+  </p>
+
+  <p>
+    <input-title>Y a-t-il des impayés concernant le loyer et les charges&nbsp;?</input-title>
+    <choice selected.two-way="is_unpaid_rent" required>
+      <choice-option value.bind="true">Oui</choice-option>
+      <choice-option value.bind="false">Non</choice-option>
+    </choice>
+  </p>
+
+  <p if.bind="is_unpaid_rent">
+    <label>
+      <input-title>Montant des loyers et charges impayés</input-title>
+      <input type="number" min="0.01" max="9999999" step="0.01" value.bind="unpaid_rent | number" required unit="€">
+    </label>
+  </p>
+
+  <p if.bind="(repairs_cost + unpaid_rent) > (deposit||0)">
+    <input-title>A défaut du paiement du solde</input-title>
+    <choice selected.two-way="is_billed_to_guarantor" required>
+      <choice-option value.bind="true">Se retourner vers la caution</choice-option>
+      <choice-option value.bind="false">Saisir la justice</choice-option>
+    </choice>
+  </p>
+</section>

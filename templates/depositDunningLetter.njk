@@ -1,0 +1,25 @@
+
+<p>Je fais référence au contrat de bail portant sur le logement situé à l’adresse «&nbsp;{{tenant.address.formatted_address}}&nbsp;».</p>
+
+<p>
+  Sauf erreur de ma part, je n’ai toujours pasreçu votre paiement du dépôt de garantie d’un
+  montant de {{deposit | currency("EUR")}} prévu dans le contrat de bail,
+  <!--{% if previousLetterDate %}
+  et ce malgré mes relances et mon courrier en date du {{previousLetterDate | date("LL")}}.
+  {% else %}-->
+  et ce malgré mes relances.
+  <!--{% endif %}-->
+</p>
+
+<p>
+ Par conséquent, je vous mets en demeure de régler cette somme sous huitaine, faute de quoi
+   je me verrai dans l’obligation
+ {# {% if contractType == 'sublease' %}
+   d’initier la procédure pour mettre fin au contrat de bail auprès de la
+   juridiction compétente.
+ {% else %} #}
+   d’initier la procédure pour mettre fin au contrat de bail auprès de la
+   juridiction compétente, comme prévue par l’article 6 de la loi n° 2014-366
+   du 24 mars 2014.
+ {# {% endif %} #}
+</p>

@@ -1,0 +1,22 @@
+<section>
+  <article>
+    <h1>Bailleur</h1>
+    <person person.bind="lessor"></person>
+  </article>
+</section>
+
+<section>
+  <article>
+    <h1>Locataire</h1>
+    <natural-person person.bind="tenant" attributes="name address"></natural-person>
+  </article>
+</section>
+
+<section>
+  <p>
+    <label>
+      <input-title>Montant du dépot de garantie</input-title>
+      <input type="number" min="0.01" max="999999" step="0.01" value.bind="deposit | number" required unit="€">
+    </label>
+  </p>
+</section>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <style>
+      #app-loading{
+        font: 20px sans-serif;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div aurelia-app="main" data-subdomain="{{subdomain}}" data-templates-url="http://localhost:{{port}}">
+      <div id="app-loading">Loading…</div>
+      <script src="{{scriptdomain}}/scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": [ "id", "name" ],
+        "additionalProperties": false
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "summary": { "type": "string" },
+          "category": { "type": "string" },
+          "persons": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "resources": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "signature": {
+            "type": "object",
+            "properties": {
+              "signers": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "required": [ "signers" ],
+            "additionalProperties": false
+          },
+          "mail": {
+            "type": "object",
+            "properties": {
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "type": { "type": "string", "enum": ["standard", "registered"]}
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        "oneOf":[
+          {
+            "required": [ "signature" ],
+            "not": { "required": [ "mail" ] }
+          },
+          {
+            "required": [ "mail" ],
+            "not": { "required": [ "signature" ] }
+          }
+        ],
+        "required": [ "type", "name", "description", "summary", "category", "persons" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [ "categories", "documents" ],
+  "additionalProperties": false
+}

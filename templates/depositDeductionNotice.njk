@@ -1,0 +1,65 @@
+
+<p>Je fais référence au contrat de bail portant sur le logement situé à l’adresse «&nbsp;{{tenant.address.formatted_address}}&nbsp;».</p>
+
+<p>Vous avez initialement constitué un dépôt de garantie d’un montant de {{deposit | currency("EUR")}}.</p>
+
+{% if repairs_cost > 0 %}
+  <p>Suite au congé délivré, nous avons établi un état des lieux de sortie contradictoire du logement
+     {# {% if contractType == 'sublease' %}
+      donné en sous-location.
+     {% else %} #}
+      donné en location.
+     {# {% endif %} #}
+     Cet état des lieux, et sa comparaison avec l’état des lieux d’entrée, fait apparaître des dégradations nécessitant une remise en l’état.
+     {% if repairs_description %}
+      Et plus particulièrement les travaux suivants : {{repairs_description}}.
+     {% endif %}
+  </p>
+  <p>
+    Le montant de ces travaux s’élève à {{repairs_cost | currency("EUR")}}. Par conséquent,
+    {# {% if contractType == 'sublease' %}
+    conformément au bail de sous-location,
+    {% else %} #}
+    conformément à l’article 22 de la loi n° 89-462 du 6 juillet 1989,
+    {# {% endif %} #}
+    je retiens cette somme sur le dépôt de garantie.
+  </p>
+{% endif %}
+
+{% if unpaid_rent > 0 %}
+  <p>
+    {# {% if contractType == 'sublease' %}
+    Conformément au bail de sous-location,
+    {% else %} #}
+    Conformément à l’article 22 de la loi n° 89-462 du 6 juillet 1989,
+    {# {% endif %} #}
+    je retiens sur le dépôt de garantie les loyers et charges non payés à ce jour et dont le montant s’élève
+    à {{unpaid_rent | currency("EUR")}}.
+  </p>
+{% endif %}
+
+<p>
+  {% if (unpaid_rent + repairs_cost) == 0 %}
+    {# {% if contractType == 'sublease' %}
+    La sous-location ayant été laissée dans les conditions requises,
+    {% else %} #}
+    La location ayant été laissée dans les conditions requises,
+    {# {% endif %} #}
+    je vous restitue un montant de {{(deposit - unpaid_rent - repairs_cost) | currency("EUR")}}
+    correspondant au montant original de votre dépôt de garantie.
+  {% elseif (unpaid_rent + repairs_cost) > deposit %}
+    Le dépôt de garantie est insuffisant pour couvrir ces dépenses. Outre la retenue intégrale du
+    dépôt de garantie, je vous prie de bien vouloir me verser le solde de
+    {{(unpaid_rent + repairs_cost - deposit) | currency("EUR")}}, faute de quoi
+    {% if is_billed_to_guarantor %}
+      je me retournerai vers votre caution.
+    {% else %}
+      je saisirai justice pour obtenir le remboursement des sommes dues.
+    {% endif %}
+  {% elseif (unpaid_rent + repairs_cost) == deposit %}
+    Le dépôt de garantie couvrant exatement ces dépenses, je suis forcé de retenir l’intégralité du dépôt de garantie.
+  {% else %}{# (unpaid_rent + repairs_cost) < deposit #}
+    Par conséquent, je vous restitue un montant de {{(deposit - unpaid_rent - repairs_cost) | currency("EUR")}}
+    correspondant au montant original de votre dépôt de garantie, soustrait du montant des dépenses.
+  {% endif %}
+</p>
